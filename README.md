@@ -24,6 +24,7 @@ Table of Contents
 
 ## Features
 
+- Login with 2 user role #admin and default #user
 - CRUD functionality for managing courses and materials.
 - Rich text editor integration using CKEditor for creating content with text and images.
 - MongoDB integration for managing the backend database with Rails.
