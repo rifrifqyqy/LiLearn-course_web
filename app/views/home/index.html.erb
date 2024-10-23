@@ -3,13 +3,19 @@
 
 <%# image variabel %>
 <% images = [
-  "https://sponsors.vuejs.org/images/sentry.avif",
+  "https://static-00.iconduck.com/assets.00/strapi-icon-2048x527-z9c5j6du.png",
   "https://sponsors.vuejs.org/images/laravel.avif",
-  "https://sponsors.vuejs.org/images/vuejobs.avif",
-  "https://sponsors.vuejs.org/images/vuemastery.avif",
-  "https://sponsors.vuejs.org/images/y8.avif"
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Ruby_On_Rails_Logo.svg/2560px-Ruby_On_Rails_Logo.svg.png",
+  "https://upload.wikimedia.org/wikipedia/commons/7/70/Docker_logo.png",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8r3RyaBZLR9KSJnU9naUE-d9TCuJCCXv22A&s"
 ] %>
 <%# navbar comps %>
+<% if admin? %>
+<nav class="flex w-full py-1 justify-center items-center shadow-md bg-zinc-100">
+  <h1 class="capitalize font-semibold">admin telah dataaaang!!</h1>
+</nav>
+<% end %>
+<%# navbar %>
 <%= render 'shared/nav' %>
 
 
@@ -18,16 +24,24 @@
   <%# Hero section %>
   <section class=" flex flex-col xl:p-8 max-xl:p-6 max-lg:p-4 gap-16">
     <article class="text-center items-center flex flex-col gap-4 mx-auto max-w-[60%]">
-      <h1 class="text-4xl font-medium">Ensures your succeed in coding <span class="px-4 pb-1 bg-amber-100 rounded-full w-fit">playground</span> with structured, engaging, and fun courses.</h1>
+      <h1 class="text-4xl font-medium">Ensures your succeed in coding <span class="px-4 pb-1 bg-amber-200 rounded-full w-fit">playground</span> with structured, engaging, and fun courses.</h1>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci expedita, eligendi explicabo saepe consequatur!</p>
       <div class="flex gap-4">
         <%= railsbutton_secondary("Lihat Course", "/")%>
+        <% if  logged_in? %>
+        <% if admin?%>
+        <%= railsbutton_primary("Dahsbboard Admin", "/courses/new")%>
+        <%else%>
+        <%= railsbutton_primary("Mulai Belajar", "/")%>
+        <% end %>
+        <%else%>
         <%= railsbutton_primary("Daftar", "/login")%>
+        <% end %>
       </div>
 
     </article>
 
-    <div class="bg-cover bg-center h-[380px] rounded-3xl" style="background-image: url('https://img.freepik.com/free-photo/close-up-student-reading-book_23-2148888822.jpg?t=st=1729128707~exp=1729132307~hmac=7eed677118f3c44b3d5242061a6b18c4463755069a88df82f671d9fcaf90cb79&w=2048')"></div>
+    <div class="bg-cover bg-center h-[380px] rounded-3xl" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
   </section>
 
   <%# sponsorhip %>
