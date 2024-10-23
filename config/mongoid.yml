@@ -4,7 +4,7 @@ development:
     # Defines the default client. (required)
     default:
       # Mongoid can connect to a URI accepted by the driver:
-      uri: mongodb+srv://lililuo:qHkX6HH0prz4XkZl@cluster1.qrphrrv.mongodb.net/articlesdb?retryWrites=true&w=majority&appName=Cluster1
+      uri: <%= ENV['MONGODB_URI'] %>
 
       # Otherwise define the parameters separately.
       # This defines the name of the default database that Mongoid can connect to.
