@@ -1,0 +1,10 @@
+<% @courses.each do |course| %>
+<div class="course-item">
+  <h2><%= course.title %></h2>
+  <p><%= course.description %></p>
+  <% if course.thumbnail.present? %>
+  <%= image_tag(course.thumbnail.url, alt: course.title, class: "course-thumbnail") %>
+  <% end %>
+  <%= link_to "View Course", course_path(course), class: "view-course-btn" %>
+</div>
+<% end %>
