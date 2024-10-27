@@ -7,20 +7,20 @@
   }
 </style>
 
-<main class="grid grid-cols-5 h-dvh bg-zinc-100">
-  <section class="flex col-span-2">
+<main class="grid grid-cols-2 h-dvh bg-zinc-100">
+  <section class="flex ">
     <div class="m-auto flex flex-col gap-8 w-fit h-fit items-center">
-      <article>
-        <h1 class="text-[32px] font-semibold uppercase w-fit">log in</h1>
+      <article class="w-full">
+        <h1 class="text-[32px] font-semibold uppercase w-full ">log in</h1>
         <p class="text-lg text-zinc-500">Welcome back!, please log in to your account</p>
       </article>
 
       <%= form_with(url: login_path, method: :post) do %>
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4 text-[16px]">
         <div class="flex flex-col gap-2">
           <%= label_tag :username, "Username",class: "uppercase text-zinc-500" %>
           <div class="focus-within:ring-amber-500 focus-within:ring-2 rounded-lg overflow-hidden">
-            <%= text_field_tag :username, nil, placeholder: "Masukkan username", class: "h-[50px] w-[400px] pl-4 bg-opacity-0 border-0 focus:ring-0 outline-none bg-transparent valid:bg-transparent default:bg-transparent autofill:bg-transparent appearance-none" %>
+            <%= text_field_tag :username, nil, placeholder: "Masukkan username", class: "h-[50px] w-[450px] pl-4 bg-opacity-0 border-0 focus:ring-0 outline-none bg-transparent valid:bg-transparent default:bg-transparent autofill:bg-transparent appearance-none" %>
           </div>
 
         </div>
@@ -28,23 +28,19 @@
         <div class="flex flex-col gap-2">
           <%= label_tag :password,"Password", class: "uppercase text-zinc-500" %>
           <div class="focus-within:ring-amber-500 focus-within:ring-2 rounded-lg overflow-hidden">
-            <%= password_field_tag :password, nil, placeholder: "Masukkan password",class: "h-[50px] w-[400px] pl-4 bg-opacity-0 border-0 focus:ring-0 outline-none bg-transparent valid:bg-transparent default:bg-transparent autofill:bg-transparent appearance-none" %>
+            <%= password_field_tag :password, nil, placeholder: "Masukkan password",class: "h-[50px] w-[450px] pl-4 bg-opacity-0 border-0 focus:ring-0 outline-none bg-transparent valid:bg-transparent default:bg-transparent autofill:bg-transparent appearance-none" %>
           </div>
         </div>
       </div>
-      <button type="submit">Log In</button>
+      <div class="flex flex-col gap-4 mt-8">
+        <button type="submit" class="w-full bg-amber-600 text-white rounded-lg py-2 hover:opacity-90 transition-all active:scale-95  font-semibold uppercase">Log In</button>
+        <%= railsbutton_outline("Sign In", "/signup", btn_class: "w-full rounded-lg py-2 text-center uppercase transition-all font-semibold", color: " hover:bg-zinc-950 border-2 border-zinc-800 hover:text-white")%>
+      </div>
     </div>
     <% end %>
     </div>
 
   </section>
-
-  <section class="max-h-dvh flex w-full col-span-3 relative">
-    <div class="w-full h-[40%]  flex justify-center items-center bg-white z-20 m-8 mt-auto rounded-2xl">
-      <p class="text-white font-semibold text-4xl">LILEdARNV</p>
-    </div>
-    <div class="absolute w-full h-full p-4 top-0 left-0">
-      <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="h-full rounded-2xl object-cover brightness-50 " />
-    </div>
-  </section>
+  <%# banner side login page %>
+  <%= render 'layouts/login/login_banner'%>
 </main>
