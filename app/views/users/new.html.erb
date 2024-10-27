@@ -1,27 +1,109 @@
-<!-- app/views/users/new.html.erb -->
-<h1>Sign Up</h1>
+<!-- app/views/sessions/new.html.erb -->
+<main class="grid grid-cols-2 h-dvh bg-zinc-100">
+  <section class="flex flex-col">
+    <h1 class="m-8">
+      <%= railsbutton_primary("Kembali","/login") %>
+    </h1>
+    <div class="m-auto flex flex-col gap-8 w-fit h-fit items-center">
+      <article class="w-full">
+        <h1 class="text-[32px] font-semibold uppercase w-full"><%= @user.present? ? 'Sign Up' : 'Log In' %></h1>
+        <p class="text-lg text-zinc-500"><%= @user.present? ? 'Create a new account' : 'Welcome back!, please log in to your account' %></p>
+      </article>
 
-<%= form_with model: @user, url: signup_path do |f| %>
+      <%= form_with(model: @user || User.new, url: @user.present? ? signup_path : login_path, method: :post) do |f| %>
 
-<!-- Jika ada error, tampilkan pesan di sini -->
-<% if @user.errors.any? %>
-<div class="alert alert-danger">
-  <ul>
-    <% @user.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
-    <% end %>
-  </ul>
-</div>
-<% end %>
-<div>
-  <%= f.label :username %>
-  <%= f.text_field :username %>
-</div>
+      <div class="flex flex-col gap-4 text-[16px]">
+        <div class="flex flex-col gap-2">
+          <%= f.label :username, "Username", class: "uppercase text-zinc-500" %>
+          <div class="focus-within:ring-amber-500 focus-within:ring-2 bg-white rounded-lg overflow-hidden">
+            <%= f.text_field :username, placeholder: "Masukkan username", class: "h-[50px] w-[450px]  pl-4 bg-opacity-0 border-0 focus:ring-0 outline-none bg-transparent appearance-none" %>
+          </div>
+          <!-- Display Errors for Sign Up Form -->
+          <% if @user&.errors.any? %>
+          <div class="alert text-red-500 text-sm">
+            <ul>
+              <%# Menampilkan pesan error khusus untuk username %>
+              <% @user.errors.full_messages_for(:username).each do |message| %>
+              <% if message.include?("Username has already been taken") %>
+              <li>Username sudah dimiliki. Silakan pilih username lain.</li>
+              <% else %>
+              <li><%= message %></li>
+              <% end %>
+              <% end %>
+            </ul>
+          </div>
+          <% end %>
 
-<div>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-</div>
+        </div>
 
-<%= f.submit "Sign Up" %>
-<% end %>
+        <div class="flex flex-col gap-2">
+          <%= f.label :password, "Password", class: "uppercase text-zinc-500" %>
+          <div class="relative focus-within:ring-amber-500 focus-within:ring-2 bg-white rounded-lg overflow-hidden">
+            <%= f.password_field :password, placeholder: "Masukkan password", class: "h-[50px] w-[450px] pl-4 bg-opacity-0 border-0 focus:ring-0 outline-none bg-transparent appearance-none", id: "password-field" %>
+            <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 flex items-center pr-3">
+              <%= image_tag 'Eyes-Outline2.svg', id: 'toggle-icon', alt: 'Toggle Password Visibility', class: 'w-5 h-5' %>
+            </button>
+          </div>
+        </div>
+
+        <% if @user.present? %>
+        <div class="flex flex-col gap-2">
+          <%= f.label :password_confirmation, "Confirm Password", class: "uppercase text-zinc-500" %>
+          <div class="relative focus-within:ring-amber-500 focus-within:ring-2 bg-white rounded-lg overflow-hidden">
+            <%= f.password_field :password_confirmation, placeholder: "Konfirmasi password", class: "h-[50px] w-[450px] pl-4 bg-opacity-0 border-0 focus:ring-0 outline-none bg-transparent appearance-none", id: 'password-field-confirmation' %>
+            <button type="button" id="toggle-password-confirmation" class="absolute inset-y-0 right-0 flex items-center pr-3">
+              <%= image_tag 'Eyes-Outline2.svg', id: 'toggle-icon-confirmation', alt: 'Toggle Password Visibility', class: 'w-5 h-5' %>
+            </button>
+          </div>
+          <% if @user.errors[:password_confirmation].any? %>
+          <ul class="text-red-500 text-sm mt-2">
+            <% @user.errors[:password_confirmation].each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+          </ul>
+          <% end %>
+        </div>
+        <% end %>
+        <!-- Tampilkan pesan error untuk password_confirmation -->
+      </div>
+
+      <div class="flex flex-col gap-4 mt-8">
+        <%= f.submit @user.present? ? "Sign Up" : "Log In", class: "w-full bg-amber-600 text-white rounded-lg py-2 hover:opacity-90 transition-all active:scale-95 font-semibold uppercase" %>
+        <% unless @user.present? %>
+        <%= railsbutton_outline("Sign Up", signup_path, btn_class: "w-full rounded-lg py-2 text-center uppercase transition-all font-semibold", color: "hover:bg-zinc-950 border-2 border-zinc-800 hover:text-white") %>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  </section>
+
+  <!-- Banner for Login Page -->
+  <%= render 'layouts/login/login_banner' %>
+</main>
+
+<script>
+  document.getElementById('toggle-password').addEventListener('click', function() {
+    const passwordField = document.getElementById('password-field');
+    const toggleIcon = document.getElementById('toggle-icon');
+
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      toggleIcon.src = '<%= asset_path("Eyes-Outline.svg") %>'; // Ganti ke ikon "mata tertutup" jika perlu
+    } else {
+      passwordField.type = 'password';
+      toggleIcon.src = '<%= asset_path("Eyes-Outline2.svg") %>'; // Ganti ke ikon "mata terbuka"
+    }
+  });
+  document.getElementById('toggle-password-confirmation').addEventListener('click', function() {
+    const passwordField = document.getElementById('password-field-confirmation');
+    const toggleIcon = document.getElementById('toggle-icon-confirmation');
+
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      toggleIcon.src = '<%= asset_path("Eyes-Outline.svg") %>'; // Ganti ke ikon "mata tertutup" jika perlu
+    } else {
+      passwordField.type = 'password';
+      toggleIcon.src = '<%= asset_path("Eyes-Outline2.svg") %>'; // Ganti ke ikon "mata terbuka"
+    }
+  });
+</script>
