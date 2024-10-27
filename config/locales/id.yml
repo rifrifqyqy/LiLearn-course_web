@@ -1,0 +1,39 @@
+# config/locales/id.yml
+id:
+  time:
+    words:
+      about: ""
+      ago: ""
+      from_now: "dari sekarang"
+  datetime:
+    distance_in_words:
+      less_than_x_seconds:
+        one: "kurang dari satu detik"
+        other: "kurang dari %{count} detik"
+      x_seconds:
+        one: "satu detik"
+        other: "%{count} detik"
+      less_than_x_minutes:
+        one: "kurang dari satu menit"
+        other: "kurang dari %{count} menit"
+      x_minutes:
+        one: "satu menit"
+        other: "%{count} menit"
+      about_x_hours:
+        one: "sekitar satu jam"
+        other: "%{count} jam"
+      x_days:
+        one: "satu hari"
+        other: "%{count} hari"
+      about_x_months:
+        one: "satu bulan"
+        other: "%{count} bulan"
+      x_months:
+        one: "satu bulan"
+        other: "%{count} bulan"
+      about_x_years:
+        one: "satu tahun"
+        other: "%{count} tahun"
+      x_years:
+        one: "satu tahun"
+        other: "%{count} tahun"
