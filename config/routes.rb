@@ -5,14 +5,19 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
 
 
-  # route login
-  get "sessions/new"
-  get "sessions/create"
-  get "sessions/destroy"
-  get 'login', to: 'sessions#new'
-  post 'login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy', as: 'logout'
-  get "home/Index"
+# Route untuk login
+get 'login', to: 'sessions#new'
+post 'login', to: 'sessions#create'
+delete 'logout', to: 'sessions#destroy', as: 'logout'  # Logout
+
+
+  # route pages
+  get "/", to: 'pages#homepage'
+  get 'materi-list', to: 'pages#course_pages'
+  get 'materi/:id', to: 'pages#course_per_id', as: 'coursepage'
+
+
+  # ckeditor setup
   mount Ckeditor::Engine => '/ckeditor'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -30,5 +35,5 @@ Rails.application.routes.draw do
     resources :materials, except: [:index]
   end
 # routes untuk course/new
-  root "home#index" # Mengarahkan root path ke home#index
+  root "pages#homepage" # Mengarahkan root path ke home#index
 end
