@@ -10,4 +10,5 @@ class Course
    accepts_nested_attributes_for :materials, allow_destroy: true
    # Pemasangan uploader thumbnail
    mount_uploader :thumbnail, ThumbnailUploader
+   
 end
