@@ -11,7 +11,7 @@ class MaterialsController < ApplicationController
   def create
     @material = @course.materials.new(material_params)
     if @material.save
-      redirect_to course_path(@course), notice: 'Material successfully added.'
+      redirect_to course_path(@course), notice: 'Sukses menambahkan materi'
     else
       render :new
     end
@@ -24,7 +24,7 @@ class MaterialsController < ApplicationController
   # PATCH/PUT /courses/:course_id/materials/:id
   def update
     if @material.update(material_params)
-      redirect_to course_path(@course), notice: 'Material successfully updated.'
+      redirect_to course_path(@course), notice: 'Sukses mengupdate materi'
     else
       render :edit
     end
@@ -33,7 +33,7 @@ class MaterialsController < ApplicationController
   # DELETE /courses/:course_id/materials/:id
   def destroy
     @material.destroy
-    redirect_to course_path(@course), notice: 'Material successfully deleted.'
+    redirect_to course_path(@course), notice: 'Materi berhasil dihapus'
   end
 
   private
