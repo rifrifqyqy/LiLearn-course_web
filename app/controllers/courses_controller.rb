@@ -4,6 +4,7 @@ class CoursesController < ApplicationController
 
 
   def new
+    # @ = instance | penggunaan @course menjadikannya dapat diakses di view yang terkait dengan controller tersebut, memungkinkan Anda untuk menampilkan data yang dikandung variabel tersebut di halaman HTML.
     @course = Course.new
     # Buat objek material kosong agar dapat ditampilkan di form
     @course.materials.build
