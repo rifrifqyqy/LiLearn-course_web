@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get "dashboard/index"
+    get "dashboard/show"
+  end
   get "users/new"
   get "users/create"
   get '/signup', to: 'users#new', as: 'signup'
@@ -16,6 +20,10 @@ delete 'logout', to: 'sessions#destroy', as: 'logout'  # Logout
   get 'materi-list', to: 'pages#course_pages'
   get 'materi/:id', to: 'pages#course_per_id', as: 'coursepage'
 
+  # routes dashboard admin
+  namespace :admin do
+    get "dashboard", to: "dashboard#index"
+  end
 
   # ckeditor setup
   mount Ckeditor::Engine => '/ckeditor'
