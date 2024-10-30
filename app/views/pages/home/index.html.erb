@@ -1,5 +1,5 @@
 <%# mengubah title menjadi Lilearnv di rails dengan erb %>
-<% content_for :title, "Li-Learnv | Beranda" %>
+<% content_for :title, "Li-Learnv | Bang" %>
 
 <%# image variabel %>
 <% images = [
@@ -12,7 +12,7 @@
 <%# navbar comps %>
 <% if admin? %>
 <nav class="flex w-full py-1 justify-center items-center shadow-md bg-zinc-100">
-  <h1 class="capitalize font-semibold">admin telah dataaaang!!</h1>
+  <h1 class="tes">admin telah dataaaang!!</h1>
 </nav>
 <% end %>
 <%= render 'shared/nav' %>
@@ -24,13 +24,13 @@
   <%# Hero section %>
   <section class=" flex flex-col xl:p-8 max-xl:p-6 max-lg:p-4 gap-16">
     <article class="text-center items-center flex flex-col gap-4 mx-auto max-w-[60%]">
-      <h1 class="text-4xl font-medium">Ensures your succeed in coding <span class="px-4 pb-1 bg-amber-200 rounded-full w-fit">playground</span> with structured, engaging, and fun courses.</h1>
+      <h1 class="text-4xl font-medium">Ensures your succeed in coding <span class="px-4 pb-1 bg-amber-200 rounded-full w-fit h-fit">playground</span> with structured, engaging, and fun courses.</h1>
       <p>Learn by doing, with a community-driven platform that makes coding enjoyable.</p>
       <div class="flex gap-4">
         <%= railsbutton_secondary("Lihat Course", "/")%>
         <% if  logged_in? %>
         <% if admin?%>
-        <%= railsbutton_primary("Dahsbboard Admin", "/courses/new")%>
+        <%= railsbutton_primary("Dahsbboard Admin", "/admin/dashboard")%>
         <%else%>
         <% end %>
         <%= railsbutton_primary("Mulai Belajar", "/", color: "bg-amber-500 font-semibold text-white")%>
@@ -75,7 +75,7 @@
             <p class="text-2xl font-semibold">Rich Courses</p>
           </article>
           <article>
-            <p>Discover a diverse array of rich courses that cater to all learning styles, providing in-depth knowledge and hands-on experiences to ensure you develop a thorough understanding of each subject.</p>
+            <p>Discover a diverse array of rich courses that cater to all learning styles, providing in-depth knowledge and hands-on experiences.</p>
           </article>
 
         </div>
@@ -140,10 +140,22 @@
     </section>
   </section>
 
+  <%# transition section %>
+  <section class="w-full mt-8 py-24 px-8 flex flex-col gap-4">
+    <figure class="flex gap-4">
+      <img src="" alt="">
+    </figure>
+    <h2 class="text-[88px] font-semibold">Dive into a <span class="px-6 py-1 rounded-full ring-zinc-800 ring-2 text-amber-500">world</span> of <br /> diverse and <span class="text-zinc-300">comprehensive </span> learning</h2>
+    <h3 class="w-fit ml-auto py-2 px-4 rounded-full border-2 border-zinc-800 font-medium">With our Courses</h3>
+  </section>
+
+
+
+
 
   <%# end %>
   <%# course card section  %>
-  <main class="flex flex-col px-8 mt-20">
+  <main class="flex flex-col px-8 mt-12">
     <div class="w-full flex justify-between items-center">
       <h1 class="text-3xl font-semibold lowercase">Explore our Latest Courses!</h1>
       <%= railsbutton_primary("Explore", "/", color: "bg-amber-500 text-white", btn_class: "text-lg font-semibold", icon: '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="m16 8.4l-8.9 8.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7L14.6 7H7q-.425 0-.712-.288T6 6t.288-.712T7 5h10q.425 0 .713.288T18 6v10q0 .425-.288.713T17 17t-.712-.288T16 16z"/></svg>', padding: "pr-2 py-1 pl-4") %>

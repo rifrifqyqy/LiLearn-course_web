@@ -4,7 +4,7 @@
 <% updated_label = local_assigns.fetch(:updated_label, true) %>
 
 <%# end props %>
-
+<% latest_material = course.materials.order_by(updated_at: :desc).first %>
 
 <%# start card component %>
 <%= link_to coursepage_path(course.id), class: "group bg-white flex flex-col justify-start gap-2 rounded-2xl h-full transition-all relative overflow-hidden" do %>
@@ -13,7 +13,7 @@
 <%# label %>
 <article class="absolute top-3 right-3 flex gap-2">
   <% if updated_label %>
-  <h1 class="w-fit flex items-center gap-2 text-xs bg-white/80 backdrop-blur-lg rounded-full px-3 py-1 font-semibold text-zinc-600  left-3">Diperbarui <%= time_ago_in_words(course.updated_at) %> yang lalu
+  <h1 class="w-fit flex items-center gap-2 text-xs bg-white/80 backdrop-blur-lg rounded-full px-3 py-1 font-semibold text-zinc-600  left-3">Diperbarui <%= time_ago_in_words(latest_material.updated_at) %> yang lalu
   </h1>
   <% else %>
   <% end %>

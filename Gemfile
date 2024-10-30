@@ -28,7 +28,7 @@ gem "jbuilder"
 # gem "redis", ">= 4.0.1"
 gem 'i18n', '~> 1.14', '>= 1.14.1'
 # gem kaminari for pagination
-gem 'pagy', '~> 9.1'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
