@@ -5,19 +5,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.password_confirmation = params[:user][:password_confirmation] # Setel password_confirmation
     if @user.save
       redirect_to login_path, notice: 'User created successfully. Please log in.'
     else
-      flash.now[:alert] = @user.errors.full_messages.join(', ')
+      flash.now[:alert] = @user.errors.full_messages.to_sentence
       render :new
     end
   end
 
-  
   private
 
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, :password_confirmation)
   end
 end
