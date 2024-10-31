@@ -1,36 +1,32 @@
 <%# style %>
-<% btn_dashboard = "text-amber-500 py-3 rounded-xl font-semibold hover:bg-zinc-200 transition-all flex gap-4 items-center px-4"%>
-
-
+<% btn_dashboard = "text-zinc-800 py-3 rounded-xl font-semibold hover:bg-zinc-200 transition-all flex gap-4 items-center px-4"%>
 <%# style end %>
 
 <main class="grid grid-cols-5 bg-zinc-200">
   <section class="bg-white col-span-1 shadow-sm h-screen flex flex-col px-8">
-    <h1>Lilearn
-
-      < />
+    <h1 class="text-3xl font-semibold uppercase w-fit mx-auto mt-8"><span class="text-amber-500">Li</span>learnv
     </h1>
-    <ul class="mt-24 flex flex-col gap-4">
-      <button class="<%= btn_dashboard %>" id="dashboard" onclick="setButtonId('dashboard')">
+    <ul class="mt-16   flex flex-col gap-4">
+      <button class="<%= full_button_classes('dashboard') %>" id="dashboard" onclick="setButtonId('dashboard')">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
           <path fill="currentColor" d="M4 13h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1m0 8h6c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1m10 0h6c.55 0 1-.45 1-1v-8c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1M13 4v4c0 .55.45 1 1 1h6c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1h-6c-.55 0-1 .45-1 1" />
         </svg>
         <p>Dashboard</p>
       </button>
-      <button class="<%= btn_dashboard %>" id="admin" onclick="setButtonId('admin')">
+      <button class="<%= full_button_classes('admin') %>" id="admin" onclick="setButtonId('admin')">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
           <path fill="currentColor" d="M17 11c.34 0 .67.04 1 .09V6.27L10.5 3L3 6.27v4.91c0 4.54 3.2 8.79 7.5 9.82c.55-.13 1.08-.32 1.6-.55c-.69-.98-1.1-2.17-1.1-3.45c0-3.31 2.69-6 6-6" />
           <path fill="currentColor" d="M17 13c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4s-1.79-4-4-4m0 1.38c.62 0 1.12.51 1.12 1.12s-.51 1.12-1.12 1.12s-1.12-.51-1.12-1.12s.5-1.12 1.12-1.12m0 5.37c-.93 0-1.74-.46-2.24-1.17c.05-.72 1.51-1.08 2.24-1.08s2.19.36 2.24 1.08c-.5.71-1.31 1.17-2.24 1.17" />
         </svg>
         <p>Admin</p>
       </button>
-      <button class="<%= btn_dashboard %>" id="users" onclick="setButtonId('users')">
+      <button class="<%= full_button_classes('users') %>" id="users" onclick="setButtonId('users')">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
           <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
         </svg>
         <p>Users</p>
       </button>
-      <button class="<%= btn_dashboard %>" id="course" onclick="setButtonId('course')">
+      <button class="<%= full_button_classes('course') %>" id="course" onclick="setButtonId('course')">
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24">
           <path fill="currentColor" d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4s8-1.79 8-4s-3.58-4-8-4M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4m0 5v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4" />
         </svg>
@@ -52,7 +48,9 @@
       </h1>
     </nav>
 
-    <% case params[:button_id] %>
+    <% current_button_id = params[:button_id] || 'dashboard' %>
+
+    <% case current_button_id %>
     <% when 'course' %>
     <%= render 'layouts/dashboard/courses_content', locals: { courses: @courses } %>
     <% when 'dashboard' %>
@@ -61,23 +59,18 @@
     <%= render 'layouts/dashboard/admin_content' %>
     <% when 'users' %>
     <%= render 'layouts/dashboard/users_content' %>
-    <!-- Ganti dengan nama partial dashboard Anda -->
     <% else %>
     <%= render 'layouts/dashboard/dashboard_content' %>
-    <!-- Render default dashboard -->
     <% end %>
+
 
 
 </main>
 <script>
-  // Fungsi untuk mengatur button_id
   function setButtonId(buttonId) {
-    window.location.href = `/admin/dashboard?button_id=${buttonId}`;
+    const url = new URL(window.location.href);
+    url.searchParams.set('button_id', buttonId);
+    url.searchParams.delete('page');
+    window.location.href = url.toString();
   }
-  window.onload = function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (!urlParams.has('button_id')) {
-      window.location.href = `/admin/dashboard?button_id=dashboard`;
-    }
-  };
 </script>
