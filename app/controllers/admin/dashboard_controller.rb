@@ -15,5 +15,6 @@ class Admin::DashboardController < ApplicationController
 
     # Membuat variabel untuk halaman saat ini
     @current_page = page
+    @button_id = params[:button_id] || 'dashboard'
   end
 end
