@@ -1,4 +1,6 @@
-class Admin::DashboardController < ApplicationController
+class Admin::DashboardController < ApplicationController\
+  # admin only restrict
+  before_action :require_admin
   def index
     # Mengatur jumlah item per halaman
     items_per_page = 8
