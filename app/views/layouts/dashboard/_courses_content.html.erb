@@ -1,4 +1,4 @@
-<main>
+<main class="flex flex-col">
   <section class=" grid grid-cols-4 justify-items-center gap-4 p-8">
     <% @courses.each do |course| %>
     <div class="max-w-fit w-full p-2 rounded-2xl bg-white flex flex-col gap-2">
@@ -11,7 +11,7 @@
       <h1 class="font-semibold text-zinc-700 text-[16px] uppercase line-clamp-1">
         <%= course.title %>
       </h1>
-      <article class="flex w-full justify-between mt-auto">
+      <article class="flex w-full justify-between">
         <div></div>
         <div class="justify-end flex gap-2">
           <%= railsbutton_secondary("Edit", "/courses/#{course.id}/edit", btn_class: "h-fit hover:ring-2 ring-sky-700 transition-all", color: "text-sky-700 bg-zinc-200") %>
@@ -21,24 +21,25 @@
     </div>
     <% end %>
   </section>
+  <% current_button_id ||= params[:button_id] || 'dashboard' %>
   <div class="flex justify-center space-x-2">
     <!-- Tombol Previous -->
     <% if @current_page > 1 %>
-    <%= link_to "Previous", admin_dashboard_path(page: @current_page - 1), 
-      class: "px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md h-fit transition-all" %>
+    <%= link_to "Previous", admin_dashboard_path(button_id: current_button_id, page: @current_page - 1),
+              class: "px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md h-fit transition-all" %>
     <% end %>
 
     <!-- Link ke setiap halaman -->
     <% (1..@total_pages).each do |page| %>
     <% page_class = "px-4 py-2 rounded-md hover:bg-gray-300 h-fit transition-all" %>
     <% page_class += " bg-red-600 text-white hover:bg-red-500" if page == @current_page %>
-    <%= link_to page, admin_dashboard_path(page: page), class: page_class %>
+    <%= link_to page, admin_dashboard_path(button_id: current_button_id, page: page), class: page_class %>
     <% end %>
 
     <!-- Tombol Next -->
     <% if @current_page < @total_pages %>
-    <%= link_to "Next", admin_dashboard_path(page: @current_page + 1), 
-      class: "px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md h-fit transition-all" %>
+    <%= link_to "Next", admin_dashboard_path(button_id: current_button_id, page: @current_page + 1),
+              class: "px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-md h-fit transition-all" %>
     <% end %>
   </div>
   </section>
