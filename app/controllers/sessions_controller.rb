@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
 
     if user
       session[:user_id] = user.id
+      user.update_last_login 
       redirect_to root_path, notice: 'Logged in successfully.'
     else
       flash.now[:alert] = 'Invalid username or password.'
