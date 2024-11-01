@@ -1,1 +1,24 @@
-<h1>Admin Data</h1>
+<table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+  <thead>
+    <tr class="bg-gray-100 text-gray-700 uppercase text-sm leading-normal">
+      <th class="border px-4 py-2">ID</th>
+      <th class="border px-4 py-2">Username</th>
+      <th class="border px-4 py-2">Password</th>
+      <th class="border px-4 py-2">Terakhir Login</th>
+      <th class="border px-4 py-2">Tanggal Dibuat</th>
+    </tr>
+  </thead>
+  <tbody class="text-gray-600 text-sm font-light">
+    <% @onlyadmin.each do |user| %>
+    <tr class="border-b border-gray-300 hover:bg-gray-100 transition duration-200">
+      <td class="border px-4 py-2"><%= user.id %></td>
+      <td class="border px-4 py-2"><%= user.username %></td>
+      <td class="border px-4 py-2"><%= user.password %></td>
+      <td class="border px-4 py-2">
+        <%= user.last_login.present? ? time_ago_in_words(user.last_login) + ' yang lalu' : 'Belum pernah login' %>
+      </td>
+      <td class="border px-4 py-2"><%= user.created_at.strftime("%d %B %Y") %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
