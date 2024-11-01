@@ -1,7 +1,12 @@
 class Admin::DashboardController < ApplicationController\
   # admin only restrict
   before_action :require_admin
+
   def index
+
+    # pagination area
+
+    # course pagination
     # Mengatur jumlah item per halaman
     items_per_page = 8
     page = params[:page].to_i > 0 ? params[:page].to_i : 1
@@ -18,5 +23,16 @@ class Admin::DashboardController < ApplicationController\
     # Membuat variabel untuk halaman saat ini
     @current_page = page
     @button_id = params[:button_id] || 'dashboard'
+    if params[:button_id].nil?
+      redirect_to admin_dashboard_path(button_id: 'dashboard') and return
+    end
+
+    # mengambil data user
+    @users = User.all
+
+    # mengambil data user berdasarkan role
+    # user with role admin
+    @onlyadmin = User.where(role: "admin")
+    @onlyuser = User.where(role: "user")
   end
 end
