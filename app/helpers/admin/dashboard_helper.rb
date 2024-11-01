@@ -1,6 +1,6 @@
 module Admin::DashboardHelper
   def active_class(button_id)
-    params[:button_id] == button_id ? 'bg-amber-600 text-white hover:bg-amber-500/80' : ''
+    params[:button_id] == button_id ? 'bg-amber-500 text-white hover:bg-amber-500/80' : ''
   end
 
   def button_classes
