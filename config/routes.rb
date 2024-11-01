@@ -1,18 +1,16 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get "dashboard/index"
-    get "dashboard/show"
-  end
+
+  # sign in route
   get "users/new"
   get "users/create"
   get '/signup', to: 'users#new', as: 'signup'
   post '/signup', to: 'users#create'
 
 
-# Route untuk login
-get 'login', to: 'sessions#new'
-post 'login', to: 'sessions#create'
-delete 'logout', to: 'sessions#destroy', as: 'logout'  # Logout
+  # Route untuk login
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy', as: 'logout'  # Logout
 
 
   # route pages
@@ -43,5 +41,5 @@ delete 'logout', to: 'sessions#destroy', as: 'logout'  # Logout
     resources :materials, except: [:index]
   end
 # routes untuk course/new
-  root "pages#homepage" # Mengarahkan root path ke home#index
+  root "pages#homepage"
 end
