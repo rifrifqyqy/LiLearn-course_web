@@ -2,7 +2,7 @@
 <% btn_dashboard = "text-zinc-800 py-3 rounded-xl font-semibold hover:bg-zinc-200 transition-all flex gap-4 items-center px-4"%>
 <%# style end %>
 
-<main class="grid grid-cols-5 bg-zinc-200">
+<main class="grid grid-cols-5 bg-gray-100">
   <section class="bg-white col-span-1 shadow-sm h-screen flex flex-col px-8">
     <h1 class="text-3xl font-semibold uppercase w-fit mx-auto mt-8"><span class="text-amber-500">Li</span>learnv
     </h1>
@@ -44,7 +44,7 @@
     <nav class="w-full flex bg-white shadow-sm sticky top-0 py-4 px-8 z-50 justify-between">
       <h2 class="font-semibold text-zinc-800 text-3xl">Dashboard</h2>
       <h1 class="w-fit ml-auto">
-        <%= railsbutton_primary("Add Course", "/courses/new", color: "bg-amber-500 text-white") %>
+        <%= railsbutton_primary("Add Course", "/courses/new", color: "bg-amber-500 text-white", icon: '<svg xmlns="http://www.w3.org/2000/svg" width="26px" height="26px" viewBox="0 0 24 24"><path fill="currentColor" d="M18 14h2v3h3v2h-3v3h-2v-3h-3v-2h3zM12 3c4.42 0 8 1.79 8 4s-3.58 4-8 4s-8-1.79-8-4s3.58-4 8-4M4 9c0 2.21 3.58 4 8 4s8-1.79 8-4v3.08L19 12c-2.59 0-4.8 1.64-5.64 3.94L12 16c-4.42 0-8-1.79-8-4zm0 5c0 2.21 3.58 4 8 4h1c0 1.05.27 2.04.75 2.9L12 21c-4.42 0-8-1.79-8-4z"/></svg>') %>
       </h1>
     </nav>
 
