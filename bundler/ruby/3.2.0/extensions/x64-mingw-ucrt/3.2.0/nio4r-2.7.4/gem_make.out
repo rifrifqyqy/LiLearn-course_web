@@ -1,0 +1,18 @@
+current directory: D:/RQ/Kuliah/UNPAS/Server/course_app/bundler/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
+C:/Ruby32-x64/bin/ruby.exe extconf.rb
+
+current directory: D:/RQ/Kuliah/UNPAS/Server/course_app/bundler/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20241103-61320-f3jqlt sitelibdir\=./.gem.20241103-61320-f3jqlt clean
+make: *** No rule to make target 'clean'.  Stop.
+
+current directory: D:/RQ/Kuliah/UNPAS/Server/course_app/bundler/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20241103-61320-f3jqlt sitelibdir\=./.gem.20241103-61320-f3jqlt
+make: Nothing to be done for 'all'.
+
+current directory: D:/RQ/Kuliah/UNPAS/Server/course_app/bundler/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20241103-61320-f3jqlt sitelibdir\=./.gem.20241103-61320-f3jqlt install
+make: Nothing to be done for 'install'.
+
+current directory: D:/RQ/Kuliah/UNPAS/Server/course_app/bundler/ruby/3.2.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20241103-61320-f3jqlt sitelibdir\=./.gem.20241103-61320-f3jqlt clean
+make: *** No rule to make target 'clean'.  Stop.
