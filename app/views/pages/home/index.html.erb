@@ -1,5 +1,5 @@
 <%# mengubah title menjadi Lilearnv di rails dengan erb %>
-<% content_for :title, "Li-Learnv | Bang" %>
+<% content_for :title, "Li-Learnv | Home" %>
 
 <%# image variabel %>
 <% images = [
@@ -30,7 +30,7 @@
         <%= railsbutton_secondary("Lihat Course", "/")%>
         <% if  logged_in? %>
         <% if admin?%>
-        <%= railsbutton_primary("Dahsbboard Admin", "/admin/dashboard")%>
+        <%= railsbutton_primary("Dahsboard Admin", "/admin/dashboard?button_id=dashboard")%>
         <%else%>
         <% end %>
         <%= railsbutton_primary("Mulai Belajar", "/", color: "bg-amber-500 font-semibold text-white")%>
