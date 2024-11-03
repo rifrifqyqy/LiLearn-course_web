@@ -9,6 +9,7 @@ class Admin::DashboardController < ApplicationController\
     @total_users_registered = User.count
     @total_users_active = User.online.count
     @total_normaluser = User.userdefault.count
+    @online_users = User.online.pluck(:id)
 
     # ================== pagination area ==================
 
