@@ -7,6 +7,7 @@ class User
   field :password, type: String
   field :role, type: String, default: 'user'  
   field :last_login, type: Time
+  field :last_activity_at, type: Time
    # Jika Anda menyimpan password secara langsung (tidak disarankan untuk keamanan)
   attr_accessor :password_confirmation
 
@@ -40,4 +41,23 @@ class User
         puts "Failed to update last login: #{errors.full_messages.join(', ')}"
       end
     end
+
+
+    #detect active user
+     # Perbarui aktivitas terakhir saat ada interaksi
+    def update_last_active
+      self.update_attribute(:last_active_at, Time.current)
+    end
+
+    # Metode untuk memeriksa apakah pengguna online
+    def online?
+      last_active_at && last_active_at > 5.minutes.ago
+    end
+
+    # Kelas metode untuk mendapatkan semua pengguna yang online
+    def self.online_users
+      where(:last_active_at.gt => 5.minutes.ago)
+    end 
+    scope :online, -> { where(:last_activity_at.gte => 5.minutes.ago) }
+    scope :userdefault, -> { where(:role => 'user') }
 end
