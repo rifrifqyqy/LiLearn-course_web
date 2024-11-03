@@ -1,7 +1,12 @@
-<%# buatkan fungsi menghitung data total course %>
+<%# meta tag name %>
+<% content_for :title, "Li-Learnv | Dashboard" %>
 
+<main class="py-8 flex flex-col gap-4">
+  <h1 class="text-3xl font-semibold w-fit self-start">
+    Dashboard
+  </h1>
 
-<main class="py-8">
+  <%# header dashboard card %>
   <section class="grid grid-cols-3 justify-items-center gap-4 ">
     <div class="rounded-xl flex flex-col justify-between border-2 border-amber-500 h-44 bg-white/70 backdrop-blur-md w-full p-4 relative overflow-hidden">
       <%# <figure class="w-full h-full top-0 left-0 absolute -z-10 bg-white/65 backdrop-blur-sm"></figure> %>
@@ -17,7 +22,7 @@
       </article>
 
     </div>
-    <div class="rounded-xl flex flex-col justify-between border-2 border-emerald-500 h-44 bg-white/70 backdrop-blur-md w-full p-4 relative overflow-hidden">
+    <div class="rounded-xl flex flex-col justify-between border-2 border-emerald-500 h-44 backdrop-blur w-full p-4 relative overflow-hidden">
       <%# <figure class="w-full h-full top-0 left-0 absolute -z-10 bg-white/65 backdrop-blur-sm"></figure> %>
       <figure class="bg-cover w-full h-full top-0 left-0 absolute blur-sm -z-20" style="background-image: url('<%= image_path('holo3.jpeg') %>')"></figure>
       <article class="flex rounded-2xl gap-2 bg-white/50 border-2 border-white text-emerald-600 backdrop-blur-md p-3 w-fit">
