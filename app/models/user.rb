@@ -8,9 +8,8 @@ class User
   field :role, type: String, default: 'user'  
   field :last_login, type: Time
   field :last_activity_at, type: Time
-   # Jika Anda menyimpan password secara langsung (tidak disarankan untuk keamanan)
+  # Jika Anda menyimpan password secara langsung (tidak disarankan untuk keamanan)
   attr_accessor :password_confirmation
-
   # Validasi unik untuk username
   validates :username, presence: true, uniqueness: true
   # validasi password
@@ -21,7 +20,9 @@ class User
       errors.add(:password_confirmation, "Password tidak cocok. Pastikan keduanya sama.")
     end
   end
- # Memperbarui `last_login` saat berhasil login
+  # ================= last login logic ===================== 
+
+  # Memperbarui `last_login` saat berhasil login
     def self.authenticate(username, password)
       user = User.where(username: username).first
       if user && user.password == password
@@ -43,21 +44,24 @@ class User
     end
 
 
-    #detect active user
-     # Perbarui aktivitas terakhir saat ada interaksi
+    # ===================== detect active user =====================
+
+    # update last active
     def update_last_active
       self.update_attribute(:last_active_at, Time.current)
     end
 
-    # Metode untuk memeriksa apakah pengguna online
+    # check online user
     def online?
       last_active_at && last_active_at > 5.minutes.ago
     end
 
-    # Kelas metode untuk mendapatkan semua pengguna yang online
+    # get all online users
     def self.online_users
       where(:last_active_at.gt => 5.minutes.ago)
     end 
+
+    # scope
     scope :online, -> { where(:last_activity_at.gte => 5.minutes.ago) }
     scope :userdefault, -> { where(:role => 'user') }
 end
