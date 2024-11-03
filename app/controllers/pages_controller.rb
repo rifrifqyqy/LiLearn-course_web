@@ -1,6 +1,7 @@
 # app/controllers/pages_controller.rb
 class PagesController < ApplicationController
-
+  before_action :update_user_activity
+ 
   def homepage
     # get data course
     @courses = Course.includes(:materials).all
@@ -20,5 +21,13 @@ class PagesController < ApplicationController
     @course = Course.find(params[:id])
     @materials = @course.materials
     render 'pages/courses/[course]'
+  end
+
+  private
+
+  def update_user_activity
+    if current_user
+      current_user.update_attribute(:last_activity_at, Time.current)
+    end
   end
 end
