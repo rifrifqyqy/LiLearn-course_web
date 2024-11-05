@@ -3,13 +3,23 @@ class Admin::DashboardController < ApplicationController\
   before_action :require_admin
 
   def index
-
+    I18n.locale = :en
     # =============== function area ===============
     @total_course = Course.count
     @total_users_registered = User.count
     @total_users_active = User.online.count
     @total_normaluser = User.userdefault.count
     @online_users = User.online.pluck(:id)
+    # get 3 updated course
+    @three_updatedcourse = Course.includes(:materials).order(updated_at: :desc).limit(3).map do |course|
+      latest_material = course.materials.order(updated_at: :desc).first
+      {
+        course: course, 
+        latest_material_updated_at: latest_material&.updated_at
+      }
+    end
+    # user with role admin
+    @onlyadmin = User.where(role: "admin")
 
     # ================== pagination area ==================
 
@@ -46,7 +56,7 @@ class Admin::DashboardController < ApplicationController\
     @total_pages_users = (total_users / items_per_page_users.to_f).ceil
     @current_page_users = page_users
 
-    # user with role admin
-    @onlyadmin = User.where(role: "admin")
+
+    
   end
 end
