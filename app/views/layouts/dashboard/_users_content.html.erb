@@ -64,7 +64,7 @@
       last login
     </div>
     <div>
-      tanggal dibuat
+      account created
     </div>
   </section>
 
@@ -109,17 +109,22 @@
             Online
           </span>
           <% else %>
-          <span class="status offline">Offline</span>
+          <span class="status offline flex gap-1 items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48" class="mt-[2px]">
+              <path fill="currentColor" stroke="currentColor" stroke-width="4" d="M24 33a9 9 0 1 0 0-18a9 9 0 0 0 0 18Z" />
+            </svg>
+            Offline
+          </span>
           <% end %>
         </p>
       </article>
       <article class="col-span-1">
-        <p class="lowercase">
-          <%= user.last_login.present? ? time_ago_in_words(user.last_login) + ' yang lalu' : 'No Data' %>
+        <p class="lowercase pr-2">
+          <%= user.last_login.present? ? time_ago_in_words(user.last_login) + ' ago' : 'No Data' %>
         </p>
       </article>
       <article class="col-span-1">
-        <p class="lowercase">
+        <p class="lowercase line-clamp-1">
           <%= user.created_at.strftime("%d %B %Y") %>
         </p>
       </article>
