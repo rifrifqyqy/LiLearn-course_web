@@ -42,14 +42,13 @@
     </article>
 
     <div class="bg-cover bg-center h-[380px] rounded-3xl flex " style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-      <%= link_to coursepage_path(@latest_course.id), class: "w-fit flex gap-4 self-end ml-auto hover:bg-white/100 transition-all duration-500 bg-white/50 active:scale-90 me-4 mb-4 backdrop-blur-lg ps-2 py-2 pe-4 rounded-xl" do %>
+      <%= link_to coursepage_path(@latest_course.id), class: "w-fit max-w-[550px] flex gap-4 self-end ml-auto hover:bg-white/100 transition-all duration-500 bg-white/50 active:scale-90 me-4 mb-4 backdrop-blur-lg ps-2 py-2 pe-4 rounded-xl" do %>
       <img src="<%= @latest_course.thumbnail %>" alt="" class="rounded-xl h-28 aspect-video" />
       <article class="flex flex-col gap-2">
         <h1 class="w-fit text-xs bg-white rounded-full px-4 py-1 font-semibold text-amber-500">Latest Course</h1>
-        <p class="uppercase font-semibold text-lg"><%= @latest_course.title %></p>
+        <p class="uppercase font-semibold text-lg line-clamp-2"><%= @latest_course.title %></p>
       </article>
       <% end %>
-
     </div>
   </section>
 
@@ -64,91 +63,72 @@
   </section>
 
 
-  <%# banner about %>
-  <section class="px-8 overflow-hidden mt-12">
-    <section class="w-full rounded-3xl grid grid-cols-2 h-[450px] bg-cover bg-no-repeat p-4" style="background-image: url('<%= image_path('coder.jpg') %>')">
-      <div></div>
-      <main class="grid mt-auto grid-cols-2 h-2/3 p-6 order-2 gap-2 bg-white/20 rounded-[52px] backdrop-blur-lg">
-        <div class="bg-white rounded-[42px] p-4 flex flex-col gap-4">
-          <article class="flex gap-4 items-center">
-            <img src="<%= image_path('enchantbook.webp') %>" class="w-[60px] aspect-square rounded-full p-2 bg-zinc-200" alt="">
-            <p class="text-2xl font-semibold">Rich Courses</p>
-          </article>
-          <article>
-            <p>Discover a diverse array of rich courses that cater to all learning styles, providing in-depth knowledge and hands-on experiences.</p>
-          </article>
-
-        </div>
-        <div class="bg-white rounded-[42px] p-4 flex flex-col gap-6">
-          <article class="flex gap-4 items-center">
-            <img src="<%= image_path('wheat.webp') %>" class="w-[60px] aspect-square rounded-full p-2 bg-zinc-200" alt="">
-            <p class="text-2xl font-semibold">Active Community</p>
-          </article>
-          <article class="">
-            <ul class="flex gap-4 self-center w-fit mx-auto">
-              <svg class="cursor-pointer hover:scale-95 transition-all" width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_1183_262)">
-                  <circle cx="26.5" cy="26.5" r="26.5" fill="#D9D9D9" />
-                  <path d="M40.1896 13.694C37.7298 12.5431 35.0997 11.7067 32.3499 11.2305C32.0122 11.841 31.6177 12.6622 31.3457 13.3155C28.4226 12.8759 25.5265 12.8759 22.6572 13.3155C22.3852 12.6622 21.9817 11.841 21.641 11.2305C18.8883 11.7067 16.2551 12.5462 13.7953 13.7001C8.83385 21.1975 7.48888 28.5087 8.16137 35.7161C11.4521 38.1735 14.6411 39.6663 17.7764 40.6431C18.5505 39.5777 19.2409 38.4452 19.8357 37.2516C18.7029 36.8212 17.618 36.29 16.5929 35.6734C16.8648 35.4719 17.1309 35.2612 17.3879 35.0445C23.6405 37.969 30.4341 37.969 36.612 35.0445C36.872 35.2612 37.138 35.4719 37.407 35.6734C36.3788 36.293 35.2909 36.8242 34.1582 37.2547C34.7529 38.4452 35.4404 39.5808 36.2175 40.6462C39.3558 39.6693 42.5478 38.1766 45.8385 35.7161C46.6276 27.3609 44.4906 20.1169 40.1896 13.694ZM20.6875 31.2836C18.8106 31.2836 17.2713 29.5313 17.2713 27.3975C17.2713 25.2637 18.7777 23.5084 20.6875 23.5084C22.5974 23.5084 24.1366 25.2606 24.1038 27.3975C24.1067 29.5313 22.5974 31.2836 20.6875 31.2836ZM33.3123 31.2836C31.4354 31.2836 29.8961 29.5313 29.8961 27.3975C29.8961 25.2637 31.4024 23.5084 33.3123 23.5084C35.2222 23.5084 36.7614 25.2606 36.7286 27.3975C36.7286 29.5313 35.2222 31.2836 33.3123 31.2836Z" fill="#FFA800" />
-                </g>
-                <defs>
-                  <clipPath id="clip0_1183_262">
-                    <rect width="53" height="53" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-              <svg class="cursor-pointer hover:scale-95 transition-all" width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_1183_281)">
-                  <circle cx="26.5" cy="26.5" r="26.5" fill="#D9D9D9" />
-                  <g clip-path="url(#clip1_1183_281)">
-                    <path d="M27 13.8812C31.275 13.8812 31.7813 13.9 33.4625 13.975C35.025 14.0437 35.8688 14.3063 36.4313 14.525C37.175 14.8125 37.7125 15.1625 38.2688 15.7188C38.8313 16.2813 39.175 16.8125 39.4625 17.5563C39.6813 18.1188 39.9438 18.9687 40.0125 20.525C40.0875 22.2125 40.1063 22.7188 40.1063 26.9875C40.1063 31.2625 40.0875 31.7688 40.0125 33.45C39.9438 35.0125 39.6813 35.8563 39.4625 36.4188C39.175 37.1625 38.825 37.7 38.2688 38.2563C37.7063 38.8188 37.175 39.1625 36.4313 39.45C35.8688 39.6688 35.0188 39.9313 33.4625 40C31.775 40.075 31.2688 40.0938 27 40.0938C22.725 40.0938 22.2188 40.075 20.5375 40C18.975 39.9313 18.1313 39.6688 17.5688 39.45C16.825 39.1625 16.2875 38.8125 15.7313 38.2563C15.1688 37.6938 14.825 37.1625 14.5375 36.4188C14.3188 35.8563 14.0563 35.0063 13.9875 33.45C13.9125 31.7625 13.8938 31.2563 13.8938 26.9875C13.8938 22.7125 13.9125 22.2062 13.9875 20.525C14.0563 18.9625 14.3188 18.1188 14.5375 17.5563C14.825 16.8125 15.175 16.275 15.7313 15.7188C16.2938 15.1563 16.825 14.8125 17.5688 14.525C18.1313 14.3063 18.9813 14.0437 20.5375 13.975C22.2188 13.9 22.725 13.8812 27 13.8812ZM27 11C22.6563 11 22.1125 11.0187 20.4063 11.0938C18.7063 11.1688 17.5375 11.4437 16.525 11.8375C15.4688 12.25 14.575 12.7938 13.6875 13.6875C12.7938 14.575 12.25 15.4688 11.8375 16.5188C11.4437 17.5375 11.1688 18.7 11.0938 20.4C11.0188 22.1125 11 22.6563 11 27C11 31.3438 11.0188 31.8875 11.0938 33.5938C11.1688 35.2938 11.4437 36.4625 11.8375 37.475C12.25 38.5313 12.7938 39.425 13.6875 40.3125C14.575 41.2 15.4688 41.75 16.5188 42.1563C17.5375 42.55 18.7 42.825 20.4 42.9C22.1063 42.975 22.65 42.9937 26.9938 42.9937C31.3375 42.9937 31.8813 42.975 33.5875 42.9C35.2875 42.825 36.4563 42.55 37.4688 42.1563C38.5188 41.75 39.4125 41.2 40.3 40.3125C41.1875 39.425 41.7375 38.5313 42.1438 37.4813C42.5375 36.4625 42.8125 35.3 42.8875 33.6C42.9625 31.8938 42.9813 31.35 42.9813 27.0063C42.9813 22.6625 42.9625 22.1188 42.8875 20.4125C42.8125 18.7125 42.5375 17.5438 42.1438 16.5313C41.75 15.4688 41.2063 14.575 40.3125 13.6875C39.425 12.8 38.5313 12.25 37.4813 11.8438C36.4625 11.45 35.3 11.175 33.6 11.1C31.8875 11.0188 31.3438 11 27 11Z" fill="#FFA800" />
-                    <path d="M27 18.7812C22.4625 18.7812 18.7812 22.4625 18.7812 27C18.7812 31.5375 22.4625 35.2188 27 35.2188C31.5375 35.2188 35.2188 31.5375 35.2188 27C35.2188 22.4625 31.5375 18.7812 27 18.7812ZM27 32.3312C24.0563 32.3312 21.6687 29.9438 21.6687 27C21.6687 24.0563 24.0563 21.6687 27 21.6687C29.9438 21.6687 32.3312 24.0563 32.3312 27C32.3312 29.9438 29.9438 32.3312 27 32.3312Z" fill="#FFA800" />
-                    <path d="M37.4625 18.4562C37.4625 19.5187 36.6 20.375 35.5438 20.375C34.4813 20.375 33.625 19.5125 33.625 18.4562C33.625 17.3937 34.4875 16.5375 35.5438 16.5375C36.6 16.5375 37.4625 17.4 37.4625 18.4562Z" fill="#FFA800" />
+  <%# section %>
+  <main class="grid grid-cols-2 px-8 gap-8 mt-8">
+    <section>
+      <figure class="relative">
+        <img class="w-full object-cover object-left aspect-square rounded-3xl" src="<%= image_path('coder.jpg') %>" alt="">
+        <div class="absolute w-full h-full flex top-0 items-end">
+          <div class="bg-white/35 backdrop-blur-md rounded-2xl font-semibold p-4 ml-auto translate-x-[160px] translate-y-[-200px] shadow-md">
+            <h1 class="flex gap-4 items-center text-[20px] font-semibold border-b border-white pb-4">
+              <span>
+                <svg class="cursor-pointer hover:scale-95 transition-all" width="42" height="42" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_1183_262)">
+                    <circle cx="26.5" cy="26.5" r="26.5" fill="#D9D9D9" />
+                    <path d="M40.1896 13.694C37.7298 12.5431 35.0997 11.7067 32.3499 11.2305C32.0122 11.841 31.6177 12.6622 31.3457 13.3155C28.4226 12.8759 25.5265 12.8759 22.6572 13.3155C22.3852 12.6622 21.9817 11.841 21.641 11.2305C18.8883 11.7067 16.2551 12.5462 13.7953 13.7001C8.83385 21.1975 7.48888 28.5087 8.16137 35.7161C11.4521 38.1735 14.6411 39.6663 17.7764 40.6431C18.5505 39.5777 19.2409 38.4452 19.8357 37.2516C18.7029 36.8212 17.618 36.29 16.5929 35.6734C16.8648 35.4719 17.1309 35.2612 17.3879 35.0445C23.6405 37.969 30.4341 37.969 36.612 35.0445C36.872 35.2612 37.138 35.4719 37.407 35.6734C36.3788 36.293 35.2909 36.8242 34.1582 37.2547C34.7529 38.4452 35.4404 39.5808 36.2175 40.6462C39.3558 39.6693 42.5478 38.1766 45.8385 35.7161C46.6276 27.3609 44.4906 20.1169 40.1896 13.694ZM20.6875 31.2836C18.8106 31.2836 17.2713 29.5313 17.2713 27.3975C17.2713 25.2637 18.7777 23.5084 20.6875 23.5084C22.5974 23.5084 24.1366 25.2606 24.1038 27.3975C24.1067 29.5313 22.5974 31.2836 20.6875 31.2836ZM33.3123 31.2836C31.4354 31.2836 29.8961 29.5313 29.8961 27.3975C29.8961 25.2637 31.4024 23.5084 33.3123 23.5084C35.2222 23.5084 36.7614 25.2606 36.7286 27.3975C36.7286 29.5313 35.2222 31.2836 33.3123 31.2836Z" fill="#7269d6" />
                   </g>
-                </g>
-                <defs>
-                  <clipPath id="clip0_1183_281">
-                    <rect width="53" height="53" fill="white" />
-                  </clipPath>
-                  <clipPath id="clip1_1183_281">
-                    <rect width="32" height="32" fill="white" transform="translate(11 11)" />
-                  </clipPath>
-                </defs>
-              </svg>
-              <svg class="cursor-pointer hover:scale-95 transition-all" width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_1183_287)">
-                  <circle cx="26.5" cy="26.5" r="26.5" fill="#D9D9D9" />
-                  <g clip-path="url(#clip1_1183_287)">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M23.3792 31.6549V21.5536C26.9652 23.241 29.7425 24.8711 33.0272 26.6284C30.318 28.1309 26.9652 29.8168 23.3792 31.6549ZM43.3638 16.5298C42.7452 15.7148 41.691 15.0805 40.5686 14.8704C37.2695 14.2439 16.6878 14.2422 13.3905 14.8704C12.4904 15.0392 11.6889 15.447 11.0004 16.0807C8.09935 18.7733 9.0084 33.213 9.70766 35.552C10.0017 36.5644 10.3818 37.2946 10.8606 37.7739C11.4774 38.4075 12.3218 38.8438 13.2918 39.0395C16.0082 39.6014 30.0025 39.9155 40.5112 39.1239C41.4794 38.9551 42.3364 38.5048 43.0124 37.8442C45.6947 35.1623 45.5118 19.9117 43.3638 16.5298Z" fill="#FFA800" />
-                  </g>
-                </g>
-                <defs>
-                  <clipPath id="clip0_1183_287">
-                    <rect width="53" height="53" fill="white" />
-                  </clipPath>
-                  <clipPath id="clip1_1183_287">
-                    <rect width="36" height="36" fill="white" transform="translate(9 9)" />
-                  </clipPath>
-                </defs>
-              </svg>
-
-            </ul>
-          </article>
-
+                  <defs>
+                    <clipPath id="clip0_1183_262">
+                      <rect width="53" height="53" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+              Discord Community
+            </h1>
+            <div class="flex justify-between gap-12 mt-4">
+              <p class="font-medium text-[14px]">Connect, Learn, and Grow Together</p>
+              <%= railsbutton_primary("Join", "/", color: "bg-indigo-700 text-white") %>
+            </div>
+          </div>
         </div>
-      </main>
+      </figure>
     </section>
-  </section>
 
-  <%# transition section %>
-  <section class="w-full mt-8 py-24 px-8 flex flex-col gap-4">
-    <figure class="flex gap-4">
-      <img src="" alt="">
-    </figure>
-    <h2 class="text-[88px] font-semibold">Dive into a <span class="px-6 py-1 rounded-full ring-zinc-800 ring-2 text-amber-500">world</span> of <br /> diverse and <span class="text-zinc-300">comprehensive </span> learning</h2>
-    <h3 class="w-fit ml-auto py-2 px-4 rounded-full border-2 border-zinc-800 font-medium">With our Courses</h3>
-  </section>
+    <section class="flex flex-col">
+      <article class="flex flex-col gap-4">
+        <h1 class="text-[54px] font-semibold self-end">Dive into a world of diverse and <span class="text-amber-500">comprehensive </span> learning</h1>
+        <div class="grid grid-cols-6 w-full items-center text-xl font-semibold">
+          <p class="w-full col-span-2">Start your journey</p>
+          <span class="w-full h-2 rounded-full bg-zinc-700 col-span-3"></span>
+          <p class="w-full col-span-1 pl-6">Now!</p>
+        </div>
+      </article>
 
+      <section class="flex flex-col gap-4 mt-auto w-fit items-end self-end">
+        <div class="">
+          <%= railsbutton_primary("Mulai Belajar", "/", color: "bg-amber-500 text-white", btn_class: "text-lg font-semibold") %>
+        </div>
+        <div class="border border-zinc-300 rounded-2xl font-semibold p-4  w-fit">
+          <h1 class="flex gap-4 items-center text-[20px] font-semibold border-b border-zinc-300 pb-3">
+            <span>
+              <img src="<%= image_path('enchantbook.webp') %>" class="w-[48px] aspect-square rounded-full p-2 bg-zinc-200" alt="">
+            </span>
+            Rich Courses
+          </h1>
+          <div class="grid grid-cols-2 relative justify-between mt-4">
+            <p class="font-medium text-[14px]">Explore our Rainbow Courses</p>
+            <div class="flex justify-end h-full">
+              <img src="<%= image_path('nuxt.svg') %>" alt="" class="translate-x-[60px] hover:-rotate-45 hover:translate-x-[40px] transition-all bg-white rounded-xl z-20">
+              <img src="<%= image_path('framermotion.svg') %>" alt="" class="translate-x-[30px] bg-white rounded-xl z-10">
+              <img src="<%= image_path('remix.svg') %>" alt="" class=" bg-white rounded-xl z-0">
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <%# section end %>
 
 
 
