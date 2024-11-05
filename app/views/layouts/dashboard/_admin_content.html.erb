@@ -64,7 +64,7 @@
       last login
     </div>
     <div>
-      tanggal dibuat
+      account created
     </div>
   </section>
 
@@ -95,7 +95,7 @@
       </article>
       <article class="col-span-1">
         <p class="lowercase">
-          <%= admin.last_login.present? ? time_ago_in_words(admin.last_login) + ' yang lalu' : 'No Data' %>
+          <%= admin.last_login.present? ? time_ago_in_words(admin.last_login) + ' ago' : 'No Data' %>
         </p>
       </article>
       <article class="col-span-1">
