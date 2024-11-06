@@ -1,12 +1,11 @@
 class CoursesController < ApplicationController
-  # limit acces to admin
+  # limit access to admin
   before_action :require_admin, only: [:new, :create, :update, :edit]
-
+  before_action :set_course, only: [:show, :create_review, :edit, :update]
 
   def new
-    # @ = instance | penggunaan @course menjadikannya dapat diakses di view yang terkait dengan controller tersebut, memungkinkan Anda untuk menampilkan data yang dikandung variabel tersebut di halaman HTML.
+        # @ = instance | penggunaan @course menjadikannya dapat diakses di view yang terkait dengan controller tersebut, memungkinkan Anda untuk menampilkan data yang dikandung variabel tersebut di halaman HTML.
     @course = Course.new
-    # Buat objek material kosong agar dapat ditampilkan di form
     @course.materials.build
   end
 
@@ -22,7 +21,6 @@ class CoursesController < ApplicationController
   def update
     @course = Course.find(params[:id])
     Rails.logger.debug "Course Params: #{course_params.inspect}"
-
     if @course.update(course_params)
       redirect_to @course, notice: 'Course was successfully updated.'
     else
@@ -33,14 +31,34 @@ class CoursesController < ApplicationController
   def edit
     @course = Course.includes(:materials).find(params[:id])
   end
-  
+
   def show
     @course = Course.find(params[:id])
   end
 
+  # Review Action
+  def create_review
+    @review = @course.reviews.build(review_params)
+    @review.user = current_user
+    
+    if @review.save
+      redirect_to course_path(@course), notice: 'Review successfully added.'
+    else
+      render 'show'
+    end
+  end
+
   private
+
+  def set_course
+    @course = Course.find(params[:id])
+  end
+
+  def review_params
+    params.require(:review).permit(:rating, :content)
+  end
+
   def course_params
-    # Izinkan nested attributes untuk materials
     params.require(:course).permit(:title, :thumbnail, :description, materials_attributes: [:id, :title, :description, :content, :_destroy])
   end
 end
