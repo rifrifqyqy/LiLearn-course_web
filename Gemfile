@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem "mongoid", '~> 8.1.6'
+gem "mongoid", '~> 8.1.7'
 gem "ckeditor"
 gem "tailwindcss-rails"
 gem 'mongoid-paperclip', require: 'mongoid_paperclip'
