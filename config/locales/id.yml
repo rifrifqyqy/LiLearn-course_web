@@ -37,3 +37,13 @@ id:
       x_years:
         one: "satu tahun"
         other: "%{count} tahun"
+  mongoid:
+    errors:
+      messages:
+        document_not_found:
+          message_title: "Dokumen tidak ditemukan."
+          message: "Dokumen dengan ID yang diberikan tidak dapat ditemukan."
+          summary_title: "Ringkasan kesalahan"
+          summary: "Mongoid tidak dapat menemukan dokumen dengan ID yang diminta."
+          resolution_title: "Solusi yang disarankan"
+          resolution: "Periksa apakah ID yang Anda masukkan benar, atau pastikan bahwa dokumen tersebut ada dalam database."

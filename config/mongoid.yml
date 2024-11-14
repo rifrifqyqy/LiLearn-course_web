@@ -26,8 +26,8 @@ development:
         # Change the default read preference. Valid options for mode are: :secondary,
         # :secondary_preferred, :primary, :primary_preferred, :nearest
         # (default: primary)
-        # read:
-        #   mode: :secondary_preferred
+        read:
+          mode: :secondary_preferred
         #   tag_sets:
         #     - use: web
 
@@ -145,7 +145,7 @@ development:
 
     # Set the Mongoid and Ruby driver log levels when Mongoid is not using
     # Ruby on Rails logger instance. (default: :info)
-    # log_level: :info
+    log_level: :info
 
     # Preload all models in development, needed when models use
     # inheritance. (default: false)
