@@ -10,7 +10,8 @@
     <div class="max-w-fit w-full p-2 rounded-2xl bg-white flex flex-col gap-2 border border-zinc-300">
       <figure class="relative">
         <div class="absolute left-1 top-1">
-          <%= railsbutton_primary("Delete", "/admin/courses/#{course.id}/edit", btn_class: "h-fit hover:ring-2 ring-white transition-all hover:opacity-100 text-[14px]", color: "bg-red-700 text-white", padding: "px-2 py-1") %>
+          <%= button_to "Delete", course_path(course.id), method: :delete, data: { confirm: "Are you sure?" }, class: "h-fit hover:ring-2 ring-white transition-all hover:opacity-100 text-[14px] bg-red-700 text-white px-2 py-1" %>
+
         </div>
         <img src="<%= image_path(course.thumbnail) %>" class="w-full aspect-video rounded-xl" alt="">
       </figure>
