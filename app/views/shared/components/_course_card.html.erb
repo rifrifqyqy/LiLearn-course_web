@@ -29,7 +29,7 @@
 
 <span class="absolute transition-all duration-300 rounded-xl w-full h-full opacity-0 group-hover:opacity-100 translate-y-[66%] group-hover:bg-white group-hover:translate-y-[35%] ">
   <div class="flex flex-col p-4 rounded-xl group-hover:bg-zinc-700 group-hover:text-zinc-100 group-hover:border-4 group-hover:border-zinc-200 transition-all">
-    <h1 class="text-xl font-semibold uppercase">
+    <h1 class="text-lg font-semibold uppercase">
       <%= course.title %>
     </h1>
     <p class="line-clamp-1 group-hover:line-clamp-3"><%= course.description %></p>
@@ -38,13 +38,30 @@
         <path fill="currentColor" d="M7.885 16.616q.213 0 .356-.144t.144-.357V4.5q0-.213-.144-.356Q8.097 4 7.884 4t-.356.144t-.143.356v11.616q0 .212.144.356t.356.143M6.231 21q-.93 0-1.58-.65Q4 19.698 4 18.77V5.23q0-.929.65-1.58Q5.302 3 6.23 3H15q.666 0 1.14.475q.476.474.476 1.14V16q0 .666-.475 1.14q-.475.476-1.141.476H6.23q-.501 0-.865.341Q5 18.3 5 18.804t.365.85t.866.346h12.154q.269 0 .442-.173t.173-.442V5.5q0-.213.144-.356T19.501 5t.356.144T20 5.5v13.885q0 .666-.475 1.14t-1.14.475z" />
       </svg> <%= course.materials.count %> Materi
     </p>
+    <div class="flex gap-1 items-center text-[14px]">
+      <div class="text-amber-500">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <path fill="currentColor" d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z" />
+        </svg>
+      </div>
+      <p class="font-semibold"><%= course.average_rating %></p>
+      <div>(<%= course.reviews.count %> Reviews)</div>
+    </div>
   </div>
 </span>
 <div class="bg-zinc-200 rounded-2xl h-full p-3">
-  <h1 class="text-xl font-semibold uppercase">
+  <h1 class="text-lg font-semibold uppercase">
     <%= course.title %>
   </h1>
   <p class="line-clamp-1"><%= course.description %></p>
-  <p class="line-clamp-1"><%= course.average_rating %> Rating</p>
+  <div class="flex gap-1 items-center text-[14px]">
+    <div class="text-amber-500">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="m5.825 21l1.625-7.025L2 9.25l7.2-.625L12 2l2.8 6.625l7.2.625l-5.45 4.725L18.175 21L12 17.275z" />
+      </svg>
+    </div>
+    <p class="font-semibold"><%= course.average_rating %></p>
+    <div>(<%= course.reviews.count %> Reviews)</div>
+  </div>
 </div>
 <% end %>
