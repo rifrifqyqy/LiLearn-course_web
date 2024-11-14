@@ -13,6 +13,7 @@ class PagesController < ApplicationController
   end
   def course_pages
     @courses = Course.all
+    I18n.locale = :id
     render 'pages/courses/course_pages' # Mengambil semua course
   end
 
