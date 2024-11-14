@@ -16,7 +16,7 @@ class Course
 
    # Menghitung rata-rata rating menggunakan agregasi Mongoid
   def average_rating
-    return 'N/A' if reviews.empty?
+    return '' if reviews.empty?
   
     # Gunakan aggregate pada koleksi Review untuk menghitung rata-rata
     result = Review.collection.aggregate([
