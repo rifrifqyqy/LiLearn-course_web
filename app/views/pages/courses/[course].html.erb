@@ -1,73 +1,413 @@
-<div class="container mx-auto py-8 px-4">
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <div class="flex flex-col md:flex-row gap-6">
-      <!-- Thumbnail -->
-      <img src="<%= @course.thumbnail %>" class="w-full md:w-1/3 h-full aspect-video rounded-lg object-cover" alt="<%= @course.title %> Thumbnail">
+<%# style %>
+<style>
+  .accordion-header-open {
+    color: #ff9900;
+  }
+</style>
+<%# style end %>
 
-      <!-- Course Information -->
-      <div class="flex-1">
-        <h1 class="text-3xl font-semibold mb-4"><%= @course.title %></h1>
-        <p class="text-gray-600 mb-6"><%= @course.description %></p>
+<%# navbar script %>
+<script>
+  // JavaScript untuk menggeser navbar keatas
+  document.addEventListener("DOMContentLoaded", () => {
+    const navbar = document.getElementById("navbar");
+    let lastScrollY = window.scrollY;
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > lastScrollY && window.scrollY > 0) {
+        navbar.classList.add("-translate-y-[150%]");
+      } else {
+        navbar.classList.remove("-translate-y-[150%]");
+      }
+      lastScrollY = window.scrollY;
+    });
+  });
 
-        <!-- Materials Section -->
-        <% if @materials.present? %>
-        <h2 class="text-2xl font-semibold mb-4">Materials</h2>
-        <ul class="space-y-3">
-          <% @materials.each do |material| %>
-          <li class="p-3 bg-gray-100 rounded-lg">
-            <h3 class="text-xl font-medium"><%= material.title %></h3>
-            <p class="text-gray-500 line-clamp-2"><%= material.description %></p>
-            <p class="text-gray-500 line-clamp-2"><%= raw material.content %></p>
-          </li>
-          <% end %>
-        </ul>
-        <% else %>
-        <p class="text-gray-500">No materials available for this course.</p>
-        <% end %>
-      </div>
-    </div>
+  // JavaScript untuk menampilkan konten materi di tab kiri
+  document.addEventListener("DOMContentLoaded", () => {
+    const contentMaterial = document.getElementById("content-material");
+    const contentTitle = document.getElementById("content-title");
 
-    <!-- Comments and Rating Section -->
-    <div class="mt-8">
-      <h2 class="text-2xl font-semibold mb-4">Comments & Ratings</h2>
-      <!-- Form to Add Comment and Rating -->
-      <% if current_user %>
-      <%= form_with model: [@course, @course.reviews.build], local: true do |f| %>
-      <div class="mb-4">
-        <%= f.label :rating, "Rating (1-5)", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.number_field :rating, in: 1..5, step: 1, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
-      </div>
+    document.querySelectorAll(".view-material-btn").forEach(button => {
+      button.addEventListener("click", function() {
+        // Ambil konten dari data-material-content
+        const materialContent = button.getAttribute("data-material-content");
+        const materialTitle = button.getAttribute("data-material-title");
 
-      <div class="mb-4">
-        <%= f.label :content, "Comment", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.text_area :content, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
-      </div>
+        // Pastikan konten dan judul ada
+        if (materialContent && materialTitle) {
+          // Menampilkan konten di dalam div content-material
+          contentMaterial.innerHTML = materialContent;
 
-      <%= f.submit "Submit", class: "px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700" %>
-      <% end %>
-      <% else %>
-      <p class="text-gray-500 mt-4">Please log in to leave a comment and rating.</p>
-      <% end %>
-      <!-- Display Average Rating -->
-      <p class="text-yellow-500 font-bold">Average Rating: <%= @course.average_rating %>/5</p>
-      <!-- Display Existing Comments -->
-      <% if @course.reviews.count > 0 %>
-      <ul class="mt-6 space-y-4">
-        <% @course.reviews.each do |review| %>
-        <li class="p-4 bg-gray-100 rounded-lg">
-          <p class="text-yellow-500 font-bold">Rating: <%= review.rating || "N/A" %>/5</p>
-          <p class="text-gray-800"><%= review.content %></p>
-          <p class="text-sm text-gray-500">
-            Posted on <%= review.created_at ? review.created_at.strftime("%d %B %Y") : "Date not available" %>
-            by <%= review.user ? review.user.username : "User not available" %>
-          </p>
-        </li>
-        <% end %>
-      </ul>
-      <% else %>
-      <p class="text-gray-500 mt-4">No comments available for this course.</p>
-      <% end %>
+          // Menampilkan judul di dalam div content-title
+          contentTitle.innerHTML = materialTitle;
+        } else {
+          console.log("Konten atau judul tidak ditemukan!");
+        }
+      });
+    });
+  });
+</script>
+<%# end navbar %>
 
-    </div>
+
+<%# navbar %>
+<nav id="navbar" class="sticky top-4 w-full flex px-16 transition-all duration-500">
+  <div class="flex justify-between items-center  p-4 border-zinc-300 border bg-white/50 backdrop-blur-sm rounded-xl w-full shadow-sm">
+    <%= railsbutton_primary("Kembali", "/") %>
+    <article class="flex gap-4 items-center">
+      <p class="font-medium"><%= @course.title %></p>
+      <p class="px-4 py-1 bg-zinc-200 rounded-full"><%= @course.materials.count %> Materi</p>
+    </article>
   </div>
-</div>
+</nav>
+<%# end navbar %>
+
+<%# component start %>
+<main class="container mx-auto py-8 px-4">
+  <%# header %>
+  <main class="grid grid-cols-3 gap-8 px-16">
+    <%# main section %>
+    <section class="col-span-2 flex flex-col gap-8 border-r-2 border-zinc-300 pr-8">
+      <article class="flex flex-col gap-6">
+        <ul class="flex gap-2 text-sm text-zinc-400 font-semibold">
+          <li>
+            <a href="">Materi</a>
+          </li>
+          <p>/</p>
+          <li>
+            <a href="" class="text-amber-500"><%= @course.title %></a>
+          </li>
+        </ul>
+        <p id="content-title" class="text-3xl font-semibold uppercase"><%= @course.title %></p>
+      </article>
+      <figure id="content-material" class="content-material">
+        <img src="<%= @course.thumbnail %>" class="rounded-2xl aspect-video h-[450px]" alt="">
+      </figure>
+
+    </section>
+    <%# materi section %>
+    <section class="col-span-1 flex flex-col gap-4">
+      <h1 class="font-semibold text-xl uppercase">
+        Course Outline
+      </h1>
+      <%# =================== accordion material =================== %>
+      <article>
+        <% if @materials.present? %>
+        <% @materials.each do |material| %>
+        <div class="accordion-item border-b border-zinc-300">
+          <button type="button" class="accordion-header group w-full flex items-center justify-between py-4 font-medium text-gray-700 hover:text-amber-500 focus:outline-none" data-accordion-toggle>
+            <div class="flex gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7 16h2V4H7zm14 6H6q-1.25 0-2.125-.875T3 19V5q0-1.25.875-2.125T6 2h6.8q-.85.875-1.325 2.025T11 6.5q0 2.575 1.738 4.425T17 12.975V18H6q-.425 0-.712.288T5 19t.288.713T6 20h13v-7.175q.55-.125 1.05-.337t.95-.513zm-3.5-10q0-2.3 1.6-3.9T23 6.5q-2.3 0-3.9-1.6T17.5 1q0 2.3-1.6 3.9T12 6.5q2.3 0 3.9 1.6t1.6 3.9" />
+              </svg>
+              <p><%= material.title %></p>
+            </div>
+            <div>
+              <svg class="accordion-arrow w-4 h-4 group-hover:text-amber-500 text-gray-500 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </button>
+          <div class="accordion-content overflow-hidden max-h-0 transition-[max-height] duration-500 ease-in-out" style="max-height: 0;">
+            <p class="p-4 text-gray-600">
+              <%= material.description %>
+              <%= material.id %>
+            </p>
+            <button class="py-2 mb-4 text-white bg-amber-500 rounded-full w-full view-material-btn" data-material-content="<%= material.content %>" data-material-title="<%= material.title %>">Lihat materi</button>
+          </div>
+        </div>
+        <% end %>
+        <%# ================ end accordion material ================ %>
+        <% else %>
+        <p class="text-gray-600 text-sm">No materials available</p>
+        <% end %>
+      </article>
+      <div class="review-container flex flex-col gap-4 mt-4">
+        <article class="flex gap-2 items-center">
+          <h1 class="text-lg font-semibold">Your Reviews</h1>
+        </article>
+
+        <%# =================== display your review | form review ================== %>
+        <% if current_user %>
+        <% review = @course.reviews.where(user: current_user).first %>
+        <% if review %>
+        <!-- Tampilkan Komentar Pengguna yang Sudah Ada -->
+        <div class="mb-4">
+          <article class="flex flex-col gap-6 border border-zinc-300 rounded-2xl px-4 py-3">
+            <figure class="flex justify-between items-center">
+              <div class="flex gap-4 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" class="p-1 bg-zinc-200 rounded-full aspect-square text-zinc-800" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
+                </svg>
+                <div>
+                  <p class="font-semibold capitalize"><%= review.user.username %></p>
+                  <p class="text-zinc-600 text-sm"> <%= time_ago_in_words(review.updated_at) %></p>
+                </div>
+
+              </div>
+              <p class="text-zinc-700 text-sm flex items-center gap-2 bg-zinc-100 rounded-lg pr-2 pl-1 py-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-500" width="20" height="20" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <%= review.rating %>
+              </p>
+            </figure>
+            <p><%= review.content %></p>
+            <!-- Tombol untuk Mengedit Komentar -->
+            <div class="flex items-center text-zinc-800 text-sm">
+              <%= link_to "Edit", "#", class: "", id: "edit-review-button" %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 10a2 2 0 0 0-2 2a2 2 0 0 0 2 2c1.11 0 2-.89 2-2a2 2 0 0 0-2-2" />
+              </svg>
+              <button type="button" class="text-red-800" id="delete-review-button">
+                Delete
+              </button>
+              <!-- Modal Confirmation to Delete Review -->
+              <div id="delete-review-modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 hidden">
+                <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+                  <h2 class="text-xl font-semibold mb-4">Are you sure you want to delete your review?</h2>
+                  <div class="flex justify-between">
+                    <%= button_to course_review_path(@course, review), method: :delete, data: { confirm: 'Are you sure you want to delete this review?' }, class: "px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700" do %>
+                    Delete
+                    <% end %>
+
+                    <button id="cancel-delete-button" class="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <%# end modal %>
+            </div>
+
+          </article>
+
+
+
+
+          <!-- Form Edit Komentar (mulai disembunyikan) -->
+          <div id="edit-review-form" class="hidden mt-4">
+            <%= form_with model: review, local: true, url: course_review_path(@course, review) do |f| %>
+            <div class="mb-4">
+              <%= f.label :rating, "Rating (1-5)", class: "block text-sm font-medium text-gray-700" %>
+              <div class="star-rating flex">
+                <% (1..5).each do |star| %>
+                <%= radio_button_tag 'review[rating]', star, review.rating == star, id: "star_#{star}", class: "hidden", data: { index: star } %>
+                <label for="star_<%= star %>" class="star text-xl cursor-pointer text-gray-400" data-index="<%= star %>">&#9733;</label>
+                <% end %>
+              </div>
+              <p id="rating-value" class="mt-2 text-sm text-gray-600">Rating Anda: <%= review.rating %></p>
+            </div>
+
+            <div class="mb-4">
+              <%= f.label :content, "Comment", class: "block text-sm font-medium text-gray-700" %>
+              <%= f.text_area :content, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+            </div>
+
+            <%= f.submit "Update Review", class: "px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700" %>
+            <% end %>
+            <%# end form edit %>
+            <!-- Tombol Cancel untuk Menutup Form -->
+            <button type="button" id="cancel-edit-button" class="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 mt-4">
+              Cancel
+            </button>
+          </div>
+          <%# end form edit %>
+
+
+        </div>
+        <% else %>
+        <!-- Jika Belum Ada Review, Tampilkan Form Baru -->
+
+        <%= form_with model: [@course, @course.reviews.build], local: true do |f| %>
+        <div class="mb-4">
+          <%= f.label :rating, "Rating (1-5)", class: "block text-sm font-medium text-gray-700" %>
+          <div class="star-rating flex">
+            <% (1..5).each do |star| %>
+            <%= radio_button_tag 'review[rating]', star, false, id: "star_#{star}", class: "hidden", data: { index: star } %>
+            <label for="star_<%= star %>" class="star text-2xl cursor-pointer text-gray-400" data-index="<%= star %>">&#9733;</label>
+            <% end %>
+          </div>
+          <p id="rating-value" class="mt-2 text-sm text-gray-600">Rating Anda: 0</p>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :content, "Comment", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :content, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+        </div>
+
+        <%= f.submit "Submit", class: "px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700" %>
+        <% end %>
+
+        <%#  %>
+        <% end %>
+        <% else %>
+        <p class="text-gray-500 mt-4">Please log in to leave a comment and rating.</p>
+        <% end %>
+
+
+
+        <!-- Display Existing Comments -->
+        <article class="flex gap-2 items-center">
+          <h1 class="text-lg font-semibold">User Reviews</h1>
+          <p class="text-zinc-600">(<%= @course.reviews.count %>)</p>
+        </article>
+
+        <% valid_reviews = @course.reviews.select { |review| review.rating.present? && review.content.present? } %>
+        <%# jika ada review maka %>
+        <% if valid_reviews.any? %>
+        <% valid_reviews.each do |review| %>
+        <article class="flex flex-col gap-4 border border-zinc-300 rounded-2xl px-4 py-3">
+          <figure class="flex justify-between items-center">
+            <div class="flex gap-4 items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" class="p-1 bg-zinc-200 rounded-full aspect-square text-zinc-800" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4" />
+              </svg>
+              <div>
+                <p class="font-semibold capitalize"><%= review.user.username %></p>
+                <p class="text-zinc-600 text-sm"> <%= time_ago_in_words(review.updated_at) %></p>
+              </div>
+
+            </div>
+            <p class="text-zinc-700 text-sm flex items-center gap-2 bg-zinc-100 rounded-lg pr-2 pl-1 py-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-500" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2L9.19 8.63L2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+              <%= review.rating %>
+            </p>
+          </figure>
+          <p><%= review.content %></p>
+      </div>
+      </article>
+      <% end %>
+      <%# jika tidak ada %>
+      <% else %>
+      <p>No reviews yet for this course.</p>
+      <% end %>
+
+      </div>
+    </section>
+    <%# end materi section %>
+  </main>
+  <%# end header %>
+</main>
+
+<script>
+  // JavaScript untuk menampilkan atau menyembunyikan form edit review
+  document.getElementById("edit-review-button")?.addEventListener("click", function(event) {
+    event.preventDefault();
+    var reviewForm = document.getElementById("edit-review-form");
+    reviewForm.classList.toggle("hidden");
+  });
+  // JavaScript untuk menutup form edit saat tombol Cancel diklik
+  document.getElementById("cancel-edit-button")?.addEventListener("click", function(event) {
+    event.preventDefault();
+    var reviewForm = document.getElementById("edit-review-form");
+    reviewForm.classList.toggle("hidden");
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const deleteReviewButton = document.getElementById("delete-review-button");
+    const modal = document.getElementById("delete-review-modal");
+    const cancelButton = document.getElementById("cancel-delete-button");
+
+    // Menampilkan modal konfirmasi saat tombol hapus diklik
+    deleteReviewButton.addEventListener("click", function() {
+      modal.classList.remove("hidden"); // Menampilkan modal
+    });
+
+    // Menutup modal jika tombol batal diklik
+    cancelButton.addEventListener("click", function() {
+      modal.classList.add("hidden"); // Menyembunyikan modal
+    });
+  });
+
+
+  // ====================== fill star function ======================
+  document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.star');
+    const ratingValueDisplay = document.getElementById('rating-value');
+    let currentRating = <%= review&.rating || 0 %>; // Use existing rating from review
+
+    // Fill stars based on the current rating when page loads
+    fillStars(currentRating);
+
+    stars.forEach(star => {
+      star.addEventListener('mouseover', (e) => {
+        const index = e.target.dataset.index;
+        fillStars(index);
+      });
+
+      star.addEventListener('mouseout', () => {
+        resetStars();
+      });
+
+      star.addEventListener('click', (e) => {
+        const index = e.target.dataset.index;
+        currentRating = index; // Update the current rating
+        document.querySelector(`#star_${index}`).checked = true;
+        fillStars(currentRating); // Ensure the filled stars are shown on click
+        updateRatingDisplay(currentRating); // Update rating display
+      });
+    });
+
+    // Function to fill stars based on the hover or click event
+    function fillStars(index) {
+      stars.forEach(star => {
+        if (star.dataset.index <= index) {
+          star.classList.add('text-yellow-500'); // Star is filled
+        } else {
+          star.classList.remove('text-yellow-500'); // Star is empty
+        }
+      });
+    }
+
+    // Reset the stars back to the current rating after mouseout
+    function resetStars() {
+      stars.forEach(star => {
+        if (star.previousElementSibling.checked || star.dataset.index <= currentRating) {
+          star.classList.add('text-yellow-500');
+        } else {
+          star.classList.remove('text-yellow-500');
+        }
+      });
+    }
+
+    // Update the displayed rating value
+    function updateRatingDisplay(rating) {
+      ratingValueDisplay.textContent = `Rating Anda: ${rating}`;
+    }
+  });
+
+  // ==================== accordion logic ====================
+  document.addEventListener("DOMContentLoaded", () => {
+    const accordions = document.querySelectorAll("[data-accordion-toggle]");
+
+    accordions.forEach((accordion) => {
+      accordion.addEventListener("click", () => {
+        const content = accordion.nextElementSibling;
+        const arrowIcon = accordion.querySelector(".accordion-arrow");
+
+        // Tutup semua accordion lain dan reset ikon panah
+        document.querySelectorAll(".accordion-content").forEach((otherContent) => {
+          if (otherContent !== content) {
+            otherContent.style.maxHeight = null;
+            otherContent.previousElementSibling.classList.remove("accordion-header-open");
+            otherContent.previousElementSibling.querySelector(".accordion-arrow").classList.remove("rotate-180", "accordion-header-open");
+          }
+        });
+
+        // Buka atau tutup accordion yang diklik dan rotasikan ikon panah
+        if (content.style.maxHeight && content.style.maxHeight !== "0px") {
+          content.style.maxHeight = null;
+          accordion.classList.remove("accordion-header-open");
+          arrowIcon.classList.remove("accordion-header-open", "rotate-180");
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+          accordion.classList.add("accordion-header-open");
+          arrowIcon.classList.add("rotate-180", "accordion-header-open");
+        }
+      });
+    });
+  });
+</script>
