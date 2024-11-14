@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   resources :courses do
     resources :materials, except: [:index]
-    resources :reviews, only: [:create]
+    resources :reviews, only: [:create, :update, :destroy]
   end
 # routes untuk course/new
   root "pages#homepage"
