@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   # limit access to admin
   before_action :require_admin, only: [:new, :create, :update, :edit]
-  before_action :set_course, only: [:show, :create_review, :edit, :update]
+  # before_action :set_course, only: [:show, :create_review, :edit, :update]
 
   def new
         # @ = instance | penggunaan @course menjadikannya dapat diakses di view yang terkait dengan controller tersebut, memungkinkan Anda untuk menampilkan data yang dikandung variabel tersebut di halaman HTML.
@@ -34,6 +34,13 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+  end
+
+  # delete course
+  def destroy
+    @course = Course.find(params[:id])
+    @course.destroy
+    redirect_to request.referer, notice: 'Course was successfully deleted.'
   end
 
   # private method
