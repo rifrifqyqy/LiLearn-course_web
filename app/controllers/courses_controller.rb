@@ -36,27 +36,8 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
   end
 
-  # Review Action
-  def create_review
-    @review = @course.reviews.build(review_params)
-    @review.user = current_user
-    
-    if @review.save
-      redirect_to course_path(@course), notice: 'Review successfully added.'
-    else
-      render 'show'
-    end
-  end
-
+  # private method
   private
-
-  def set_course
-    @course = Course.find(params[:id])
-  end
-
-  def review_params
-    params.require(:review).permit(:rating, :content)
-  end
 
   def course_params
     params.require(:course).permit(:title, :thumbnail, :description, materials_attributes: [:id, :title, :description, :content, :_destroy])
